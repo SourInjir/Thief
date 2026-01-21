@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
 public class Signalization : MonoBehaviour
 {
     private const float DefaultSignalIncreaseSpeed = 0.5f;
@@ -13,7 +14,6 @@ public class Signalization : MonoBehaviour
 
     private AudioSource _audioSource;
     private float _signalVolume;
-    private bool _isThiefInside;
     private Coroutine _signalRoutine;
 
     private void Awake()
@@ -22,51 +22,24 @@ public class Signalization : MonoBehaviour
         ResetSignal();
     }
 
-    private void OnTriggerEnter(Collider other)
+    public void StartSignal()
     {
-        if (!IsThief(other))
+        if (!EnsureAudioSource())
+        {
+            return;
+        }
+        _audioSource.Play();
+        StartSignalRoutine(_maxSignalVolume);
+    }
+
+    public void StopSignal()
+    {
+        if (!EnsureAudioSource())
         {
             return;
         }
 
-        _isThiefInside = true;
-        StartSignal();
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (!IsThief(other))
-        {
-            return;
-        }
-
-        _isThiefInside = false;
-        StopSignal();
-    }
-
-    private bool IsThief(Collider other)
-    {
-        return other.GetComponent<Thief>() != null;
-    }
-
-    private void StartSignal()
-    {
-        if (_audioSource == null)
-        {
-            return;
-        }
-
-        if (!_audioSource.isPlaying)
-        {
-            _audioSource.Play();
-        }
-
-        StartSignalRoutine();
-    }
-
-    private void StopSignal()
-    {
-        StartSignalRoutine();
+        StartSignalRoutine(Zero);
     }
 
     private void ResetSignal()
@@ -78,21 +51,21 @@ public class Signalization : MonoBehaviour
         }
     }
 
-    private void StartSignalRoutine()
+    private void StartSignalRoutine(float targetVolume)
     {
         if (_signalRoutine != null)
         {
             StopCoroutine(_signalRoutine);
         }
 
-        _signalRoutine = StartCoroutine(SignalRoutine());
+        _signalRoutine = StartCoroutine(SignalRoutine(targetVolume));
     }
 
-    private System.Collections.IEnumerator SignalRoutine()
+    private System.Collections.IEnumerator SignalRoutine(float targetVolume)
     {
         yield return new WaitForSeconds(_signalUpdateDelay);
 
-        while (UpdateSignalVolumeStep())
+        while (UpdateSignalVolumeStep(targetVolume))
         {
             yield return null;
         }
@@ -100,20 +73,21 @@ public class Signalization : MonoBehaviour
         _signalRoutine = null;
     }
 
-    private bool UpdateSignalVolumeStep()
+    private bool UpdateSignalVolumeStep(float targetVolume)
     {
-        float targetVolume = _isThiefInside ? _maxSignalVolume : Zero;
+        if (!EnsureAudioSource())
+        {
+            return false;
+        }
+
         float step = _signalIncreaseSpeed * Time.deltaTime;
         _signalVolume = Mathf.MoveTowards(_signalVolume, targetVolume, step);
 
-        if (_audioSource != null)
-        {
-            _audioSource.volume = _signalVolume;
-        }
+        _audioSource.volume = _signalVolume;
 
-        if (!_isThiefInside && _signalVolume <= Zero)
+        if (targetVolume <= Zero && _signalVolume <= Zero)
         {
-            if (_audioSource != null && _audioSource.isPlaying)
+            if (_audioSource.isPlaying)
             {
                 _audioSource.Stop();
             }
@@ -122,5 +96,16 @@ public class Signalization : MonoBehaviour
         }
 
         return !Mathf.Approximately(_signalVolume, targetVolume);
+    }
+
+    private bool EnsureAudioSource()
+    {
+        if (_audioSource != null)
+        {
+            return true;
+        }
+
+        _audioSource = GetComponent<AudioSource>();
+        return _audioSource != null;
     }
 }

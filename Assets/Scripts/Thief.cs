@@ -44,6 +44,12 @@ public class Thief : MonoBehaviour
         _playerInput.Player.Jump.performed += OnJump;
     }
 
+     private void OnEnable()
+    {
+        _playerInput.Enable();
+    }
+
+
     private void Update()
     {
         HandleLookRotation();
@@ -53,11 +59,6 @@ public class Thief : MonoBehaviour
         HandleJump();
         ApplyGravity();
         ApplyVerticalMovement();
-    }
-
-    private void OnEnable()
-    {
-        _playerInput.Enable();
     }
 
     private void OnDisable()
