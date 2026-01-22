@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(AudioSource))]
-public class Signalization : MonoBehaviour
+public class Signaling : MonoBehaviour
 {
     private const float DefaultSignalIncreaseSpeed = 0.5f;
     private const float DefaultMaxSignalVolume = 1f;
@@ -13,7 +13,6 @@ public class Signalization : MonoBehaviour
     [SerializeField] private float _signalUpdateDelay = DefaultSignalUpdateDelay;
 
     private AudioSource _audioSource;
-    private float _signalVolume;
     private Coroutine _signalRoutine;
 
     private void Awake()
@@ -24,17 +23,22 @@ public class Signalization : MonoBehaviour
 
     public void StartSignal()
     {
-        if (!EnsureAudioSource())
+        if (EnsureAudioSource() == false)
         {
             return;
         }
-        _audioSource.Play();
+
+        if (_audioSource.isPlaying == false)
+        {
+            _audioSource.Play();
+        }
+
         StartSignalRoutine(_maxSignalVolume);
     }
 
     public void StopSignal()
     {
-        if (!EnsureAudioSource())
+        if (EnsureAudioSource() == false)
         {
             return;
         }
@@ -44,10 +48,9 @@ public class Signalization : MonoBehaviour
 
     private void ResetSignal()
     {
-        _signalVolume = Zero;
         if (_audioSource != null)
         {
-            _audioSource.volume = _signalVolume;
+            _audioSource.volume = Zero;
         }
     }
 
@@ -75,19 +78,15 @@ public class Signalization : MonoBehaviour
 
     private bool UpdateSignalVolumeStep(float targetVolume)
     {
-        if (!EnsureAudioSource())
-        {
-            return false;
-        }
-
         float step = _signalIncreaseSpeed * Time.deltaTime;
-        _signalVolume = Mathf.MoveTowards(_signalVolume, targetVolume, step);
+        float currentVolume = _audioSource.volume;
+        float nextVolume = Mathf.MoveTowards(currentVolume, targetVolume, step);
 
-        _audioSource.volume = _signalVolume;
+        _audioSource.volume = nextVolume;
 
-        if (targetVolume <= Zero && _signalVolume <= Zero)
+        if (targetVolume <= Zero && nextVolume <= Zero)
         {
-            if (_audioSource.isPlaying)
+            if (_audioSource.isPlaying == true)
             {
                 _audioSource.Stop();
             }
@@ -95,7 +94,7 @@ public class Signalization : MonoBehaviour
             return false;
         }
 
-        return !Mathf.Approximately(_signalVolume, targetVolume);
+        return Mathf.Approximately(nextVolume, targetVolume) == false;
     }
 
     private bool EnsureAudioSource()
@@ -106,6 +105,7 @@ public class Signalization : MonoBehaviour
         }
 
         _audioSource = GetComponent<AudioSource>();
+
         return _audioSource != null;
     }
 }

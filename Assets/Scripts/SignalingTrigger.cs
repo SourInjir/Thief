@@ -1,12 +1,12 @@
 using UnityEngine;
 
-public class SignalizationTrigger : MonoBehaviour
+public class SignalingTrigger : MonoBehaviour
 {
-    [SerializeField] private Signalization _signalization;
+    [SerializeField] private Signaling _signalization;
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!other.TryGetComponent<Thief>(out _))
+        if (other.TryGetComponent<Thief>(out _) == false)
         {
             return;
         }
@@ -16,7 +16,7 @@ public class SignalizationTrigger : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (!other.TryGetComponent<Thief>(out _))
+        if (other.TryGetComponent<Thief>(out _) == false)
         {
             return;
         }
