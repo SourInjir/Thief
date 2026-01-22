@@ -129,9 +129,8 @@ GameObject:
   m_Component:
   - component: {fileID: 11731731}
   - component: {fileID: 11731730}
-  - component: {fileID: 11731732}
-  - component: {fileID: 11731733}
   - component: {fileID: 11731734}
+  - component: {fileID: 11731735}
   m_Layer: 0
   m_Name: SignalingTrigger
   m_TagString: Untagged
@@ -175,118 +174,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &11731732
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 11731729}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4c6060ef318ed74f98250a03db859a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Signalization
-  _signalIncreaseSpeed: 0.5
-  _maxSignalVolume: 1
-  _signalUpdateDelay: 1
---- !u!82 &11731733
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 11731729}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: 733dd6712685e2345bc2bfd0a51ff81a, type: 3}
-  m_PlayOnAwake: 0
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!114 &11731734
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -299,7 +186,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 394e543c96052964a8bb696768c2995d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SignalizationTrigger
-  _signalization: {fileID: 917721827}
+--- !u!114 &11731735
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 11731729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66508f87019ebe646b819bc25c8deab5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SignalingTrigger
+  _signalization: {fileID: 1208834152}
 --- !u!1 &185511432
 GameObject:
   m_ObjectHideFlags: 0
@@ -1194,7 +1093,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &917721825
+--- !u!1 &1208834151
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1202,23 +1101,38 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 917721828}
-  - component: {fileID: 917721827}
-  - component: {fileID: 917721826}
+  - component: {fileID: 1208834154}
+  - component: {fileID: 1208834153}
+  - component: {fileID: 1208834152}
   m_Layer: 0
-  m_Name: Signalization
+  m_Name: Signaling
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!82 &917721826
+--- !u!114 &1208834152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1208834151}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4c6060ef318ed74f98250a03db859a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Signaling
+  _signalIncreaseSpeed: 0.5
+  _maxSignalVolume: 1
+  _signalUpdateDelay: 1
+--- !u!82 &1208834153
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 917721825}
+  m_GameObject: {fileID: 1208834151}
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
@@ -1309,31 +1223,16 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &917721827
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 917721825}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4c6060ef318ed74f98250a03db859a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Signalization
-  _signalIncreaseSpeed: 0.5
-  _maxSignalVolume: 1
-  _signalUpdateDelay: 1
---- !u!4 &917721828
+--- !u!4 &1208834154
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 917721825}
+  m_GameObject: {fileID: 1208834151}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 130.5527, y: 2.94, z: 108.26}
+  m_LocalPosition: {x: 134.77017, y: 3.92705, z: 110.71605}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2033,4 +1932,4 @@ SceneRoots:
   - {fileID: 460229869}
   - {fileID: 11731731}
   - {fileID: 2093720410}
-  - {fileID: 917721828}
+  - {fileID: 1208834154}
